@@ -23,7 +23,7 @@ class User
   end
 
   def self.find_by_name(fname, lname)
-    user_row = QuestionsDatabase.instance.execute(<<-SQL, fname: fname, lname: lname)
+    user_rows = QuestionsDatabase.instance.execute(<<-SQL, fname: fname, lname: lname)
       SELECT
         *
       FROM
@@ -32,8 +32,17 @@ class User
         lname = :lname AND fname = :fname
     SQL
 
-    raise "User doesn't exist" if user_row.empty?
+    raise "User doesn't exist" if user_rows.empty?
 
-    user_row.map { |row| User.new(row) }
+    user_rows.map { |row| User.new(row) }
   end
+
+  def authored_questions
+    Question.find_by_author_id(@id)
+  end
+
+  def authored_replies
+    Reply.find_by_user_id(@id)
+  end
+
 end

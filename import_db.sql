@@ -12,9 +12,9 @@ CREATE TABLE questions(
   id INTEGER PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   body VARCHAR(255) NOT NULL,
-  author INTEGER NOT NULL,
+  author_id INTEGER NOT NULL,
 
-  FOREIGN KEY (author) REFERENCES users(id)
+  FOREIGN KEY (author_id) REFERENCES users(id)
 );
 
 DROP TABLE IF EXISTS question_follows;
@@ -60,7 +60,7 @@ VALUES
   ('Ryan', 'Samp');
 
 INSERT INTO
-  questions (title, body, user_id)
+  questions (title, body, author_id)
 VALUES
   ('Who?', 'Who did it?', 2),
   ('Why not?', 'Why didnt I do it', 1);
@@ -78,7 +78,7 @@ VALUES
   (1, NULL, 1, 'I dont know man'),
   (1, 1, 2, 'It was Waldo!'),
   (2, NULL, 2, 'Wheres WALDO?!'),
-  (2, 2, 1, 'Im right here, duh');
+  (2, 3, 1, 'Im right here, duh');
 
 INSERT INTO
   question_likes (user_id, question_id)

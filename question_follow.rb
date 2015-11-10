@@ -8,7 +8,7 @@ class QuestionFollow
   end
 
   def self.find_by_id(id)
-    question_follow_row = QuestionsDatabase.instance.execute(<<-SQL, id: id)
+    question_follow_row = QuestionsDatabase.instance.get_first_row(<<-SQL, id: id)
       SELECT
         *
       FROM
@@ -19,6 +19,6 @@ class QuestionFollow
 
     raise "Question followers don't exist" if question_follow_row.empty?
 
-    QuestionFollow.new(question_follow_row.first)
+    QuestionFollow.new(question_follow_row)
   end
 end

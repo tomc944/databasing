@@ -8,7 +8,7 @@ class QuestionLike
   end
 
   def self.find_by_id(id)
-    question_like_row = QuestionsDatabase.instance.execute(<<-SQL, id: id)
+    question_like_row = QuestionsDatabase.instance.get_first_row(<<-SQL, id: id)
       SELECT
         *
       FROM
@@ -19,6 +19,6 @@ class QuestionLike
 
     raise "Question likes don't exist" if question_like_row.empty?
 
-    QuestionLike.new(question_like_row.first)
+    QuestionLike.new(question_like_row)
   end
 end
