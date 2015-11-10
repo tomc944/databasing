@@ -12,9 +12,9 @@ CREATE TABLE questions(
   id INTEGER PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   body VARCHAR(255) NOT NULL,
-  user_id INTEGER NOT NULL,
+  author INTEGER NOT NULL,
 
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (author) REFERENCES users(id)
 );
 
 DROP TABLE IF EXISTS question_follows;
