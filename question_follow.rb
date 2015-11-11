@@ -45,4 +45,26 @@ class QuestionFollow
     followers_row.map { |row| User.new(row) }
   end
 
+  def self.followed_questions_for_user_id(user_id)
+    followers_questions_row = QuestionsDatabase.instance.execute(<<-SQL, user_id: user_id)
+      SELECT
+        *
+      FROM
+        questions
+      JOIN
+        question_follows
+      ON
+        question_follows.question_id = questions.id
+      JOIN
+        users
+      ON
+        users.id = question_follows.user_id
+      WHERE
+        users.id = :user_id
+    SQL
+
+    raise "There are no people following that question" if followers_questions_row.empty?
+
+    followers_questions_row.map { |row| Question.new(row) }
+  end
 end
