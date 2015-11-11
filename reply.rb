@@ -90,5 +90,4 @@ class Reply
 
     all_children
   end
-
 end

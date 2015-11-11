@@ -57,20 +57,27 @@ INSERT INTO
   users (fname, lname)
 VALUES
   ('Waldo', 'Claiborne'),
-  ('Ryan', 'Samp');
+  ('Ryan', 'Samp'),
+  ('John', 'Smith'),
+  ('Jane', 'Doe');
 
 INSERT INTO
   questions (title, body, author_id)
 VALUES
   ('Who?', 'Who did it?', 2),
-  ('Why not?', 'Why didnt I do it', 1);
+  ('Why not?', 'Why didnt I do it', 1),
+  ('Question 3', 'This is question 3', 4),
+  ('Ryans 2nd questions', 'This is my second question --Ryan', 2);
 
 INSERT INTO
   question_follows (question_id, user_id)
 VALUES
   (1, 1),
   (1, 2),
-  (2, 1);
+  (2, 1),
+  (4, 2),
+  (3, 4),
+  (3, 1);
 
 INSERT INTO
   replies (question_id, reply_id, user_id, body)
@@ -78,10 +85,17 @@ VALUES
   (1, NULL, 1, 'I dont know man'),
   (1, 1, 2, 'It was Waldo!'),
   (2, NULL, 2, 'Wheres WALDO?!'),
-  (2, 3, 1, 'Im right here, duh');
+  (2, 3, 1, 'Im right here, duh'),
+  (1, 1, 4, 'Maybe Otter did it'),
+  (1, 2, 3, 'Waldo has an alibi');
 
 INSERT INTO
   question_likes (user_id, question_id)
 VALUES
   (1, 1),
-  (2, 2);
+  (2, 2),
+  (2, 3),
+  (4, 1),
+  (3, 1),
+  (4, 2),
+  (1, 4);
