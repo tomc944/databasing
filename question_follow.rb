@@ -67,4 +67,31 @@ class QuestionFollow
 
     followers_questions_row.map { |row| Question.new(row) }
   end
+
+  def self.most_followed_questions(n)
+    most_followed_rows = QuestionsDatabase.instance.execute(<<-SQL, n: n)
+      SELECT
+        questions.*
+      FROM
+        questions
+      JOIN
+        question_follows
+      ON
+        question_follows.question_id = questions.id
+      JOIN
+        users
+      ON
+        users.id = question_follows.user_id
+      GROUP BY
+        question_follows.question_id
+      ORDER BY
+        COUNT(question_follows.user_id) DESC
+      LIMIT
+        :n
+    SQL
+
+    raise "There are no followers" if most_followed_rows.empty?
+
+    most_followed_rows.map { |row| Question.new(row) }
+  end
 end
